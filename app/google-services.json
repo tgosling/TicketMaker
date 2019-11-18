@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "4486833070",
+    "firebase_url": "https://ticketmaker-fc6f3.firebaseio.com",
+    "project_id": "ticketmaker-fc6f3",
+    "storage_bucket": "ticketmaker-fc6f3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4486833070:android:58e2a87bf1247e51b81e3f",
+        "android_client_info": {
+          "package_name": "com.example.gost.ticketmaker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "4486833070-jugllmn65i0jl47h14rap6dnn3rercvm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmVDl4ruVhW8fIKWTZU4y_wEAb1Mqhzes"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "4486833070-jugllmn65i0jl47h14rap6dnn3rercvm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
