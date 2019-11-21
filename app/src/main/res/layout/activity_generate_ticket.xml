@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     tools:context=".GenerateTicketActivity">
+
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="271dp"
+        android:layout_height="116dp"
         android:layout_marginTop="68dp"
         android:src="@drawable/license"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,7 +20,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:background="@color/slate"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +33,7 @@
             android:layout_height="wrap_content"
             android:text="@string/tickInfo"
             android:textAlignment="center"
-            android:textSize="30sp" />
+            android:textSize="26sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/licPLate"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/plateNum"
@@ -68,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/prov"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/provET"
@@ -90,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/carMan"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/carManET"
@@ -113,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/model"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/carModelET"
@@ -125,6 +126,51 @@
                 android:text="@string/carModel" />
         </LinearLayout>
 
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/dateTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/date"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/dateET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="" />
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/timeTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/timeStamp"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/timeET"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
+        </LinearLayout>
     </LinearLayout>
 
     <Button

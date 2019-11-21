@@ -15,4 +15,6 @@
     <string name="editTick">Edit Ticket</string>
     <string name="pubTick">Publish Ticket</string>
     <string name="viewTick">View Tickets</string>
+    <string name="timeStamp">Time Stamp</string>
+    <string name="date">Date</string>
 </resources>
