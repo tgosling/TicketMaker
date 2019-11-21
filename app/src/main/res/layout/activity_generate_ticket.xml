@@ -195,6 +195,7 @@
         android:layout_marginBottom="16dp"
         android:text="@string/pubTick"
         android:background="@drawable/green_rnd_btn"
+        android:textColor="@color/green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -209,5 +210,20 @@
         android:text="@string/editTick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/takePicBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/black_hollow_btn"
+        android:onClick="dispatchTakePictureIntent"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/takePic"
+        android:textColor="@color/btnBlue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

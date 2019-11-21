@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ticket_tron_app_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ticket_tron_app_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".GenerateTicketActivity"></activity>
@@ -21,7 +21,11 @@
                 android:name="com.google.firebase.ml.vision.DEPENDENCIES"
                 android:value="ocr" />
             <!-- To use multiple models: android:value="ocr,model2,model3" -->
-        </activity>
-    </application>
 
+        </activity>
+
+    </application>
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>

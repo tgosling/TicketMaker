@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TicketMaker</string>
+    <string name="app_name">Ticket Tron</string>
     <string name="generTick">Generate Ticket</string>
     <string name="newTick">New Ticket</string>
     <string name="licPLate">License Plate</string>
@@ -17,4 +17,5 @@
     <string name="viewTick">View Tickets</string>
     <string name="timeStamp">Time Stamp</string>
     <string name="date">Date</string>
+    <string name="takePic">Take Picture</string>
 </resources>
