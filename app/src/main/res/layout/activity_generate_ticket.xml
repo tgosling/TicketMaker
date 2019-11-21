@@ -46,7 +46,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/licPLate"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                />
 
             <EditText
                 android:id="@+id/plateNum"
@@ -54,8 +55,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="@string/plateNum" />
+                android:inputType="none"
+                android:text="@string/plateNum"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -77,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="none"
                 android:text="@string/prov" />
         </LinearLayout>
 
@@ -99,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="none"
                 android:text="@string/carMake" />
         </LinearLayout>
 
@@ -122,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="none"
                 android:text="@string/carModel" />
         </LinearLayout>
 
@@ -145,7 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="none"
             android:text="" />
     </LinearLayout>
 
@@ -168,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="none"
                 android:text="" />
         </LinearLayout>
     </LinearLayout>
@@ -202,8 +204,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/editTick"
         android:background="@drawable/red_rnd_btn"
+        android:onClick="onEditTicClick"
+        android:text="@string/editTick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
