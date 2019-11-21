@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">TicketMaker</string>
+    <string name="generTick">Generate Ticket</string>
+    <string name="newTick">New Ticket</string>
+    <string name="licPLate">License Plate</string>
+    <string name="prov">Province</string>
+    <string name="curTime">Current Time</string>
+    <string name="carMan">Manufacturer</string>
+    <string name="carModel">Car Model</string>
+    <string name="model">Model</string>
+    <string name="tickInfo">Ticket Info</string>
+    <string name="plateNum">plate #</string>
+    <string name="carMake">Car Make</string>
+    <string name="backToMain">Back To Main</string>
+    <string name="editTick">Edit Ticket</string>
+    <string name="pubTick">Publish Ticket</string>
+    <string name="viewTick">View Tickets</string>
 </resources>
