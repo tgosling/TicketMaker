@@ -18,4 +18,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GenerateTicketActivity.class);
         startActivity(intent);
     }
+
+    public void onViewTickClick(View view){
+        Intent intent = new Intent(this, ViewTicketsActivity.class);
+        startActivity(intent);
+    }
 }

@@ -29,6 +29,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/black_hollow_btn"
+        android:onClick="onViewTickClick"
         android:text="@string/viewTick"
         android:textColor="@color/btnBlue"
         app:layout_constraintBottom_toTopOf="@+id/genTicBtn"

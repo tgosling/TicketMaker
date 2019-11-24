@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gost.ticketmaker">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ticket_tron_app_logo"
@@ -9,7 +15,8 @@
         android:roundIcon="@mipmap/ticket_tron_app_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GenerateTicketActivity"></activity>
+        <activity android:name=".ViewTicketsActivity"></activity>
+        <activity android:name=".GenerateTicketActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,9 +30,6 @@
             <!-- To use multiple models: android:value="ocr,model2,model3" -->
 
         </activity>
-
     </application>
-    <uses-feature android:name="android.hardware.camera"
-        android:required="true" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 </manifest>

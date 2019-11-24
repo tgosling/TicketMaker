@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@color/slate"
+        android:background="@drawable/layout_border"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,8 +31,10 @@
             android:id="@+id/tickInfoTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/btnBlue"
             android:text="@string/tickInfo"
             android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="26sp" />
 
         <LinearLayout
@@ -42,12 +44,12 @@
 
             <TextView
                 android:id="@+id/licPlateTV"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/licPLate"
-                android:textSize="14sp"
-                />
+                android:textColor="@color/white"
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/plateNum"
@@ -56,8 +58,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="none"
-                android:text="@string/plateNum"
-                />
+                android:text="@string/plateNum" />
         </LinearLayout>
 
         <LinearLayout
@@ -67,10 +68,11 @@
 
             <TextView
                 android:id="@+id/provTV"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/prov"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <EditText
@@ -89,10 +91,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/carManTV"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/carMan"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <EditText
@@ -112,10 +116,11 @@
 
             <TextView
                 android:id="@+id/carModelTV"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/model"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <EditText
@@ -133,13 +138,14 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/dateTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/date"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/dateTV"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/date"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
 
         <EditText
             android:id="@+id/dateET"
@@ -158,10 +164,11 @@
 
             <TextView
                 android:id="@+id/timeTV"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/timeStamp"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <EditText
@@ -179,22 +186,22 @@
         android:id="@+id/backToMainBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:background="@drawable/blue_btn"
         android:onClick="onBackToMainClick"
         android:text="@string/backToMain"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/blue_btn"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/pubTickBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/pubTick"
         android:background="@drawable/green_rnd_btn"
+        android:text="@string/pubTick"
         android:textColor="@color/green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -206,24 +213,21 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/red_rnd_btn"
+        android:textColor="@color/red"
         android:onClick="onEditTicClick"
         android:text="@string/editTick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/takePicBtn"
+    <ImageButton
+        android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/black_hollow_btn"
+        android:layout_marginEnd="16dp"
+        android:background="@color/btnBlue"
         android:onClick="dispatchTakePictureIntent"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:text="@string/takePic"
-        android:textColor="@color/btnBlue"
-        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/xsm_camera"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
