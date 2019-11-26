@@ -1,21 +1,30 @@
 package com.example.gost.ticketmaker;
 
+import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+
+import static android.graphics.BlendMode.COLOR;
 
 public class GenerateTicketActivity extends AppCompatActivity {
 
@@ -25,6 +34,7 @@ public class GenerateTicketActivity extends AppCompatActivity {
     EditText provET;
     EditText carManET;
     EditText carModET;
+    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +45,7 @@ public class GenerateTicketActivity extends AppCompatActivity {
         provET = findViewById(R.id.provET);
         carManET = findViewById(R.id.carManET);
         carModET = findViewById(R.id.carModelET);
-
+        imageView = findViewById(R.id.imageView);
 
         SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
         String formatDate = date.format(new Date());
@@ -49,7 +59,6 @@ public class GenerateTicketActivity extends AppCompatActivity {
         carManET.setEnabled(false);
         carModET.setEnabled(false);
         provET.setEnabled(false);
-
     }
 
     public void onBackToMainClick(View view){
@@ -60,30 +69,59 @@ public class GenerateTicketActivity extends AppCompatActivity {
     public void onEditTicClick(View view){
         carManET.setEnabled(true);
         carModET.setEnabled(true);
+        carManET.setTextColor(Color.rgb(200,0,0));
+        carModET.setTextColor(Color.rgb(200,0,0));
     }
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_TAKE_PHOTO = 1;
     public void dispatchTakePictureIntent(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
+        startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        Bitmap OutImage = Bitmap.createScaledBitmap(inImage, 1000, 1000,true);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), OutImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        String path = "";
+        if (getContentResolver() != null) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null) {
+                cursor.moveToFirst();
+                int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                path = cursor.getString(idx);
+                cursor.close();
             }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.android.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+        }
+        return path;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //Detects request codes
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
+            try {
+                //Thumbnail
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                imageView.setImageBitmap(imageBitmap);
+
+                //Actual file
+                Uri tempUri = getImageUri(getApplicationContext(), imageBitmap);
+                File finalFile = new File(getRealPathFromURI(tempUri));
+                System.out.println(tempUri);
+            }catch(Exception e){
+                String what = e.getMessage();
             }
         }
     }
+
 
     String currentPhotoPath;
 
@@ -97,7 +135,6 @@ public class GenerateTicketActivity extends AppCompatActivity {
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
-
         // Save a file: path for use with ACTION_VIEW intents
         currentPhotoPath = image.getAbsolutePath();
         return image;
