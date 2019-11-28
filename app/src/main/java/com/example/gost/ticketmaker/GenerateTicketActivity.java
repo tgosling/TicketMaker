@@ -7,6 +7,7 @@ import androidx.core.content.FileProvider;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -14,9 +15,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,6 +43,10 @@ public class GenerateTicketActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_ticket);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         timeStamp = findViewById(R.id.timeET);
         dateStamp = findViewById(R.id.dateET);
         licenseET = findViewById(R.id.plateNum);
@@ -46,6 +54,17 @@ public class GenerateTicketActivity extends AppCompatActivity {
         carManET = findViewById(R.id.carManET);
         carModET = findViewById(R.id.carModelET);
         imageView = findViewById(R.id.imageView);
+
+        Spinner spinner = (Spinner) findViewById(R.id.infrac_spinner);
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.infrac_array, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+
 
         SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
         String formatDate = date.format(new Date());
@@ -122,6 +141,11 @@ public class GenerateTicketActivity extends AppCompatActivity {
         }
     }
 
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+    }
 
     String currentPhotoPath;
 

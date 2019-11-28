@@ -18,4 +18,10 @@
     <string name="timeStamp">Time Stamp</string>
     <string name="date">Date</string>
     <string name="takePic">Take Picture</string>
+    <string name="Infrac">Infraction</string>
+    <string-array name="infrac_array">
+        <item>None Desiginated spot</item>
+        <item>No Ticket Displayed</item>
+        <item>Over Limit</item>
+    </string-array>
 </resources>

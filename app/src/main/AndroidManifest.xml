@@ -18,6 +18,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ViewTicketsActivity"></activity>
         <activity android:name=".GenerateTicketActivity" />
+        <meta-data
+            android:name="android.support.MainActivity"
+            android:value=".GenerateTicketActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
