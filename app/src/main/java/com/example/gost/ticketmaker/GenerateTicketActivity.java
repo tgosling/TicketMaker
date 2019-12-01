@@ -40,6 +40,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GenerateTicketActivity extends AppCompatActivity {
 
+
     EditText timeStamp;
     EditText dateStamp;
     EditText licenseET;
