@@ -24,4 +24,5 @@
         <item>No Ticket Displayed</item>
         <item>Over Limit</item>
     </string-array>
+    <string name="ticID">Ticket ID</string>
 </resources>

@@ -16,11 +16,15 @@
         android:roundIcon="@mipmap/ticket_tron_app_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewTicketsActivity"></activity>
+        <activity android:name=".ViewTicketsActivity" />
+
         <activity android:name=".GenerateTicketActivity" />
         <meta-data
-            android:name="android.support.MainActivity"
-            android:value=".GenerateTicketActivity" />
+            android:name="android.support.GenerateTicketActivity"
+            android:value=".MainActivity" />
+        <meta-data
+            android:name="android.support.ViewTicketsActivity"
+            android:value=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
