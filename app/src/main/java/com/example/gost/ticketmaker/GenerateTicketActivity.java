@@ -40,7 +40,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GenerateTicketActivity extends AppCompatActivity {
 
-
     EditText timeStamp;
     EditText dateStamp;
     EditText licenseET;
@@ -60,7 +59,6 @@ public class GenerateTicketActivity extends AppCompatActivity {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //adds back bar to main
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         timeStamp = findViewById(R.id.timeET);
         dateStamp = findViewById(R.id.dateET);
@@ -85,7 +83,7 @@ public class GenerateTicketActivity extends AppCompatActivity {
         //Random rand = new Random();
         int randomNum = ThreadLocalRandom.current().nextInt(1, 1000+1);
         //double x = (int)Math.random();
-       // tickID.setText(Integer.toString(randomNum));
+        tickID.setText(Integer.toString(randomNum));
 
         //get date and time for ticket
         SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
@@ -121,7 +119,10 @@ public class GenerateTicketActivity extends AppCompatActivity {
                     public void onSuccess(FirebaseVisionText firebaseVisionText) {
                         // Task completed successfully
                         // Display the text found in the textView
-                        tickID.setText(firebaseVisionText.getText());
+                        licenseET.setText(firebaseVisionText.getText());
+                        if(firebaseVisionText.getText().contains("ONTARIO")){
+                            provET.setText("Ontario");
+                        }
                     }
                 })
                 .addOnFailureListener(
@@ -129,11 +130,9 @@ public class GenerateTicketActivity extends AppCompatActivity {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 // Task failed with an exception
-                                // ...
-                                tickID.setText("task failed");
+                                licenseET.setText("task failed");
                             }
                         });
-
     }
 
     public void onBackToMainClick(View view){
@@ -208,7 +207,7 @@ public class GenerateTicketActivity extends AppCompatActivity {
                             public void onSuccess(FirebaseVisionText firebaseVisionText) {
                                 // Task completed successfully
                                 // Display the text found in the textView
-                                tickID.setText(firebaseVisionText.getText());
+                                licenseET.setText(firebaseVisionText.getText());
                             }
                         })
                         .addOnFailureListener(
@@ -217,7 +216,7 @@ public class GenerateTicketActivity extends AppCompatActivity {
                                     public void onFailure(@NonNull Exception e) {
                                         // Task failed with an exception
                                         // ...
-                                        tickID.setText("task failed");
+                                        licenseET.setText("task failed");
                                     }
                                 });
 
