@@ -2,11 +2,15 @@ package com.example.gost.ticketmaker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -59,6 +63,8 @@ public class GenerateTicketActivity extends AppCompatActivity {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //adds back bar to main
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //camera stuff
+
 
         timeStamp = findViewById(R.id.timeET);
         dateStamp = findViewById(R.id.dateET);
@@ -119,9 +125,17 @@ public class GenerateTicketActivity extends AppCompatActivity {
                     public void onSuccess(FirebaseVisionText firebaseVisionText) {
                         // Task completed successfully
                         // Display the text found in the textView
-                        licenseET.setText(firebaseVisionText.getText());
-                        if(firebaseVisionText.getText().contains("ONTARIO")){
-                            provET.setText("Ontario");
+                        String text = firebaseVisionText.getText();
+                        String[] provinces = {"Newfoundland", "Newfoundland and Labrador", "Newfoundland & Labrador", "Prince Edward Island","Nova Scotia","New Brunswick","Quebec","Ontario","Manitoba","Saskatchewan","Alberta","British Columbia","Yukon","Northwest Territories","Nunavut"};
+
+
+                        for (String p : provinces)
+                        {
+                            if(text.contains(p.toUpperCase()))
+                            {
+                                provET.setText(p);
+                                text.replace(p,"");
+                            }
                         }
                     }
                 })
@@ -151,6 +165,21 @@ public class GenerateTicketActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_TAKE_PHOTO = 1;
     public void dispatchTakePictureIntent(View view) {
+        if(askForFilePermissions()) {
+            takePicture();
+        }
+    }
+
+    public boolean askForFilePermissions(){
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE ) != PackageManager.PERMISSION_GRANTED){
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_IMAGE_CAPTURE);
+            return askForFilePermissions();
+        }else{
+            return true;
+        }
+    }
+
+    public void takePicture(){
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
     }
@@ -191,7 +220,7 @@ public class GenerateTicketActivity extends AppCompatActivity {
                 imageView.setImageBitmap(rotatedImage);
 
                 //Actual file
-                Uri tempUri = getImageUri(getApplicationContext(), imageBitmap);
+                Uri tempUri = getImageUri(getApplicationContext(), rotatedImage);
                 File finalFile = new File(getRealPathFromURI(tempUri));
                 System.out.println(tempUri);
 
