@@ -1,15 +1,20 @@
 package com.example.gost.ticketmaker;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DBAdapter {
-    static final String KEY_ROW_ID = "_tickID";
+    static final String KEY_ROW_ID = "_id";
+    static final String KEY_TICK_ID = "tickID";
     static final String KEY_LIC_PLATE = "license";
     static final String KEY_PROV = "province";
+    static final String KEY_CAR_MAN = "manufacturer";
+    static final String KEY_CAR_MOD = "model";
     static final String KEY_DATE = "date";
     static final String KEY_TIME = "time";
     static final String KEY_INFRAC = "infraction";
@@ -53,8 +58,50 @@ public class DBAdapter {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
                     + newVersion + ",which will destroy all old data");
-            db.execSQL("DROP TABLE IF EXISTS constacts");
+            db.execSQL("DROP TABLE IF EXISTS tickets");
             onCreate(db);
         }
     }
+
+    public DBAdapter open() throws SQLException{
+        db = DBHelper.getWritableDatabase();
+        return this;
+    }
+
+    public void close() { DBHelper.close();}
+
+    public long insertTicket(String tickID, String licPlate, String prov, String carMan, String carModel,
+                             String date, String timeStamp, String infrac){
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_TICK_ID, tickID);
+        initialValues.put(KEY_LIC_PLATE, licPlate);
+        initialValues.put(KEY_PROV, prov);
+        initialValues.put(KEY_CAR_MAN, carMan);
+        initialValues.put(KEY_CAR_MOD, carModel);
+        initialValues.put(KEY_DATE, date);
+        initialValues.put(KEY_TIME, timeStamp);
+        initialValues.put(KEY_INFRAC, infrac);
+        return db.insert(DATABASE_TABLE, null, initialValues);
+    }
+
+    //public boolean deleteContact(long rowId){
+
+    //}
+
+    public Cursor getAllTickets(){
+        return db.query(DATABASE_TABLE, new String[] {KEY_ROW_ID, KEY_TICK_ID, KEY_LIC_PLATE, KEY_CAR_MAN, KEY_CAR_MOD, KEY_DATE,
+                        KEY_TIME, KEY_INFRAC}, null, null, null, null, null);
+    }
+
+    public Cursor getTicket(long rowId){
+        Cursor mCursor =
+                db.query(DATABASE_TABLE, new String[] {KEY_ROW_ID, KEY_TICK_ID, KEY_LIC_PLATE, KEY_CAR_MAN, KEY_CAR_MOD, KEY_DATE,
+                        KEY_TIME, KEY_INFRAC}, KEY_ROW_ID + "=" + rowId, null, null, null, null, null);
+        if(mCursor != null){
+            mCursor.moveToFirst();
+        }
+        return mCursor;
+    }
+
+    //updateTicket
 }
