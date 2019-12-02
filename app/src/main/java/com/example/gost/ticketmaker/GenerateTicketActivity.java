@@ -226,7 +226,7 @@ public class GenerateTicketActivity extends AppCompatActivity {
 
                 /*TESTING*/
                 //using initial bitmap as dataset
-                FirebaseVisionImage fvImage = FirebaseVisionImage.fromBitmap(imageBitmap);
+                FirebaseVisionImage fvImage = FirebaseVisionImage.fromBitmap(rotatedImage);
                 //the on-device model for text-recognition
                 FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
                 //pass the image to the processImage method
@@ -236,7 +236,19 @@ public class GenerateTicketActivity extends AppCompatActivity {
                             public void onSuccess(FirebaseVisionText firebaseVisionText) {
                                 // Task completed successfully
                                 // Display the text found in the textView
-                                licenseET.setText(firebaseVisionText.getText());
+                                String text = firebaseVisionText.getText();
+                                licenseET.setText(text);
+
+                                String[] provinces = {"Newfoundland", "Newfoundland and Labrador", "Newfoundland & Labrador", "Prince Edward Island","Nova Scotia","New Brunswick","Quebec","Ontario","Manitoba","Saskatchewan","Alberta","British Columbia","Yukon","Northwest Territories","Nunavut"};
+
+                                for (String p : provinces)
+                                {
+                                    if(text.contains(p.toUpperCase()))
+                                    {
+                                        provET.setText(p);
+                                        text.replace(p,"");
+                                    }
+                                }
                             }
                         })
                         .addOnFailureListener(
@@ -244,11 +256,9 @@ public class GenerateTicketActivity extends AppCompatActivity {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         // Task failed with an exception
-                                        // ...
                                         licenseET.setText("task failed");
                                     }
                                 });
-
             }catch(Exception e){
                 String what = e.getMessage();
             }
