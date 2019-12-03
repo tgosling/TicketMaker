@@ -23,12 +23,33 @@ public class DBAdapter {
     static final String DATABASE_NAME = "TicketDB";
     static final String DATABASE_TABLE = "tickets";
     //check version(?)
-    static final int DATABASE_VERSION = 2;
+    static final int DATABASE_VERSION = 4;
 
     static final String DATABASE_CREATE =
-            "create table tickets(_id integer primary key autoincrement," +
-                    "ticketID text not null, license text not null, province text not null, date text not null, time text not null," +
-                    "infraction text not null);";
+            String.format(
+                    "create table is not exists %s (" +
+                            "%s integer primary key autoincrement," +
+                            "%s TEXT not null" +
+                            "%s TEXT not null" +
+                            "%s TEXT not null" +
+                            "%s TEXT not null" +
+                            "%s TEXT not null" +
+                            "%s TEXT not null" +
+                            "%s TEXT not null" +
+                            "%s TEXT not null" +
+                            "%s TEXT not null" +
+                            ")",
+                    DATABASE_TABLE,
+                    KEY_ROWID,
+                    KEY_TICK_ID,
+                    KEY_LIC_PLATE,
+                    KEY_PROV,
+                    KEY_CAR_MAN,
+                    KEY_CAR_MOD,
+                    KEY_DATE,
+                    KEY_TIME,
+                    KEY_INFRAC
+            );
 
     final Context context;
 
