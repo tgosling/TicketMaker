@@ -133,8 +133,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="none"
-                android:textColor="@color/white"
-                android:text="@string/plateNum" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -158,8 +157,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="none"
-                android:textColor="@color/white"
-                android:text="@string/prov" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout

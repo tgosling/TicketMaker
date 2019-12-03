@@ -60,8 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="none"
-                android:text="@string/plateNum" />
+                android:inputType="none" />
         </LinearLayout>
 
         <LinearLayout
