@@ -37,6 +37,11 @@ import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -280,13 +285,66 @@ public class GenerateTicketActivity extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();
-                db.open();
-                long tid = db.insertTicket(tickID.toString(), dateStamp.toString(), timeStamp.toString(),
-                        licenseET.toString(), provET.toString(), carManET.toString(),
-                        spinner.toString());
-                db.close();
-                finish();
-                startActivity(intent);
+
+                String previousData = "";
+
+
+                //save old data
+                try
+                {
+                    FileInputStream fin = openFileInput("tickets.csv");
+                    InputStreamReader isr = new InputStreamReader(fin);
+                    String prev = "";
+
+                    int data = isr.read();
+
+                    while (data != -1) {
+                        prev+= (char) data;
+                        data = isr.read();
+                    }
+
+                    previousData = prev;
+                }
+                catch(IOException ioe)
+                {
+                    ioe.printStackTrace();
+                }
+
+                try ( FileOutputStream ofile = openFileOutput("tickets.csv",MODE_PRIVATE)) {
+                    StringBuilder sb = new StringBuilder();
+
+                    OutputStreamWriter osw = new OutputStreamWriter(ofile);
+
+                    sb.append(previousData);
+                    sb.append(tickID.getText().toString());
+                    sb.append(',');
+                    sb.append(dateStamp.getText().toString());
+                    sb.append(',');
+                    sb.append(timeStamp.getText().toString());
+                    sb.append(',');
+                    sb.append(licenseET.getText().toString());
+                    sb.append(',');
+                    sb.append(provET.getText().toString());
+                    sb.append(',');
+                    sb.append(carManET.getText().toString());
+                    sb.append(',');
+                    sb.append(spinner.getSelectedItem().toString());
+                    sb.append('|');
+
+                    osw.write(sb.toString());
+                    osw.flush();
+                    osw.close();
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
+//                db.open();
+//                long tid = db.insertTicket(tickID.toString(), dateStamp.toString(), timeStamp.toString(),
+//                        licenseET.toString(), provET.toString(), carManET.toString(),
+//                        spinner.toString());
+//                db.close();
+//                finish();
+//                startActivity(intent);
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
