@@ -173,19 +173,17 @@ public class GenerateTicketActivity extends AppCompatActivity {
                 //Thumbnail
                 Bundle extras = data.getExtras();
                 Bitmap imageBitmap = (Bitmap) extras.get("data");
-                Matrix matrix = new Matrix();
-                //matrix.postRotate(90);
-                Bitmap rotatedImage = Bitmap.createBitmap(imageBitmap, 0,0, imageBitmap.getWidth(), imageBitmap.getHeight(), matrix, true);
-                imageView.setImageBitmap(rotatedImage);
+
+                imageView.setImageBitmap(imageBitmap);
 
                 //Actual file
-                Uri tempUri = getImageUri(getApplicationContext(), rotatedImage);
+                Uri tempUri = getImageUri(getApplicationContext(), imageBitmap);
                 File finalFile = new File(getRealPathFromURI(tempUri));
                 System.out.println(tempUri);
 
                 /*TESTING*/
                 //using initial bitmap as dataset
-                FirebaseVisionImage fvImage = FirebaseVisionImage.fromBitmap(rotatedImage);
+                FirebaseVisionImage fvImage = FirebaseVisionImage.fromBitmap(imageBitmap);
                 //the on-device model for text-recognition
                 FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
                 //pass the image to the processImage method
@@ -204,13 +202,12 @@ public class GenerateTicketActivity extends AppCompatActivity {
                                         "Nova Scotia","New Brunswick","Québec", "Quebec", "Ontario","Manitoba","Saskatchewan","Alberta","British Columbia",
                                         "Yukon","Northwest Territories","Nunavut"};
 
-                                while(flag) {
-                                    for (String p : provinces) {
-                                        if (text.contains(p) || text.contains(p.toUpperCase())) {
-                                            provET.setText(p);
-                                            text.replace(p, "");
-                                            flag = false;
-                                        }
+
+                                for (String p : provinces) {
+                                    if (text.contains(p) || text.contains(p.toUpperCase())) {
+                                        provET.setText(p);
+                                        text.replace(p, "");
+                                        break;
                                     }
                                 }
 
