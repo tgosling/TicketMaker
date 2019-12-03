@@ -133,6 +133,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="none"
+                android:textColor="@color/white"
                 android:text="@string/plateNum" />
         </LinearLayout>
 
@@ -157,6 +158,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="none"
+                android:textColor="@color/white"
                 android:text="@string/prov" />
         </LinearLayout>
 
@@ -181,6 +183,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="none"
+                android:textColor="@color/white"
                 android:text="@string/carMake" />
         </LinearLayout>
 
