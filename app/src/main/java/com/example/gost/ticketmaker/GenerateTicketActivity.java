@@ -184,19 +184,19 @@ public class GenerateTicketActivity extends AppCompatActivity {
                 //Thumbnail
                 Bundle extras = data.getExtras();
                 Bitmap imageBitmap = (Bitmap) extras.get("data");
-                Matrix matrix = new Matrix();
-                matrix.postRotate(90);
-                Bitmap rotatedImage = Bitmap.createBitmap(imageBitmap, 0,0, imageBitmap.getWidth(), imageBitmap.getHeight(), matrix, true);
-                imageView.setImageBitmap(rotatedImage);
+//                Matrix matrix = new Matrix();
+//                matrix.postRotate(90);
+//                Bitmap rotatedImage = Bitmap.createBitmap(imageBitmap, 0,0, imageBitmap.getWidth(), imageBitmap.getHeight(), matrix, true);
+                imageView.setImageBitmap(imageBitmap);
 
                 //Actual file
-                Uri tempUri = getImageUri(getApplicationContext(), rotatedImage);
+                Uri tempUri = getImageUri(getApplicationContext(), imageBitmap);
                 File finalFile = new File(getRealPathFromURI(tempUri));
                 System.out.println(tempUri);
 
                 /*TESTING*/
                 //using initial bitmap as dataset
-                FirebaseVisionImage fvImage = FirebaseVisionImage.fromBitmap(rotatedImage);
+                FirebaseVisionImage fvImage = FirebaseVisionImage.fromBitmap(imageBitmap);
                 //the on-device model for text-recognition
                 FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
                 //pass the image to the processImage method
@@ -212,7 +212,8 @@ public class GenerateTicketActivity extends AppCompatActivity {
 
                                 boolean nunOrNewf = false;
 
-                                String[] provinces = {"Newfoundland", "Newfoundland and Labrador", "Newfoundland & Labrador", "Prince Edward Island",
+                                //newfoundland has an odd font that doesn't like to be properly picked up
+                                String[] provinces = {"Newfoundland", "Newfoundland and Labrador", "Newfoundland & Labrador", "land", "Prince Edward Island",
                                         "Nova Scotia","New Brunswick", "Brunswick","Québec", "Quebec", "Ontario","Manitoba","Saskatchewan","Alberta","British Columbia",
                                         "Yukon","Northwest Territories","Nunavut"};
 
@@ -220,14 +221,23 @@ public class GenerateTicketActivity extends AppCompatActivity {
                                     if (text.contains(p) || text.contains(p.toUpperCase())) {
                                         //new brunswick's tag has "new" in very small font and may not be picked up
                                         //nunOrNewf if nunavut or newfoundland
-                                        if(p.toUpperCase() == "BRUNSWICK")
+                                        if(p.toUpperCase().equals("BRUNSWICK"))
                                         {
-                                            provET.setText("NEW " + p);
+                                            provET.setText("New " + p);
                                             text.replace(p, "");
                                             break;
                                         }
-                                        else if(p.toUpperCase() == "NEWFOUNDLAND" || p.toUpperCase() == "NEWFOUNDLAND AND LABRADOR" || p.toUpperCase() == "NEWFOUNDLAND & LABRADOR" ||p.toUpperCase() == "NUNAVUT")
+                                        else if(p.toUpperCase().equals("NEWFOUNDLAND") || p.toUpperCase().equals("NEWFOUNDLAND AND LABRADOR") || p.toUpperCase().equals("NEWFOUNDLAND & LABRADOR")|| p.toUpperCase().equals("LAND"))
+                                        {
                                             nunOrNewf = true;
+                                            provET.setText("Newfoundland");
+                                            text.replace(p, "");
+                                            break;
+                                        }
+                                        else if(p.toUpperCase().equals("NUNAVUT"))
+                                        {
+                                            nunOrNewf = true;
+                                        }
 
                                         provET.setText(p);
                                         text.replace(p, "");
