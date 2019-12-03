@@ -182,7 +182,7 @@
                 android:ems="10"
                 android:inputType="none"
                 android:textColor="@color/white"
-                android:text="@string/carMake" />
+                android:hint="@string/carMake" />
         </LinearLayout>
 
         <LinearLayout
