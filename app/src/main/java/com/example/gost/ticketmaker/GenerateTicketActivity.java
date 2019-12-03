@@ -174,7 +174,7 @@ public class GenerateTicketActivity extends AppCompatActivity {
                 Bundle extras = data.getExtras();
                 Bitmap imageBitmap = (Bitmap) extras.get("data");
                 Matrix matrix = new Matrix();
-                matrix.postRotate(90);
+                //matrix.postRotate(90);
                 Bitmap rotatedImage = Bitmap.createBitmap(imageBitmap, 0,0, imageBitmap.getWidth(), imageBitmap.getHeight(), matrix, true);
                 imageView.setImageBitmap(rotatedImage);
 
@@ -196,21 +196,21 @@ public class GenerateTicketActivity extends AppCompatActivity {
                                 // Task completed successfully
                                 // Display the text found in the textView
                                 String text = firebaseVisionText.getText();
-                                String[] lines = text.split("//n");
+                                String[] lines = text.split("\n");
                                 licenseET.setText(text);
+                                boolean flag = true;
 
                                 String[] provinces = {"Newfoundland", "Newfoundland and Labrador", "Newfoundland & Labrador", "Prince Edward Island",
                                         "Nova Scotia","New Brunswick","Québec", "Quebec", "Ontario","Manitoba","Saskatchewan","Alberta","British Columbia",
                                         "Yukon","Northwest Territories","Nunavut"};
 
-                                for (String p : provinces) {
-                                    if(text.contains(p)) {
-                                        provET.setText(p);
-                                        text.replace(p,"");
-                                    }
-                                    else if(text.contains(p.toUpperCase())) {
-                                        provET.setText(p);
-                                        text.replace(p,"");
+                                while(flag) {
+                                    for (String p : provinces) {
+                                        if (text.contains(p) || text.contains(p.toUpperCase())) {
+                                            provET.setText(p);
+                                            text.replace(p, "");
+                                            flag = false;
+                                        }
                                     }
                                 }
 
