@@ -75,7 +75,7 @@ public class GenerateTicketActivity extends AppCompatActivity {
         //adds back bar to main
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //db
-       // db = new DBAdapter(this);
+       db = new DBAdapter(this);
 
         //set variables
         context = getApplicationContext();
