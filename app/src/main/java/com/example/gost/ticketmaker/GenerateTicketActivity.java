@@ -196,6 +196,7 @@ public class GenerateTicketActivity extends AppCompatActivity {
                                 // Task completed successfully
                                 // Display the text found in the textView
                                 String text = firebaseVisionText.getText();
+                                String[] lines = text.split("//n");
                                 licenseET.setText(text);
 
                                 String[] provinces = {"Newfoundland", "Newfoundland and Labrador", "Newfoundland & Labrador", "Prince Edward Island",
@@ -212,6 +213,9 @@ public class GenerateTicketActivity extends AppCompatActivity {
                                         text.replace(p,"");
                                     }
                                 }
+
+                                //for typical plates, the license number is on the second line
+                                licenseET.setText(lines[1]);
                             }
                         })
                         .addOnFailureListener(
