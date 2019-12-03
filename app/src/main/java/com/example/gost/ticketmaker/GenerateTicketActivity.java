@@ -55,7 +55,6 @@ public class GenerateTicketActivity extends AppCompatActivity {
     EditText licenseET;
     EditText provET;
     EditText carManET;
-    EditText carModET;
     EditText tickID;
     ImageView imageView;
     Spinner spinner;
@@ -80,7 +79,6 @@ public class GenerateTicketActivity extends AppCompatActivity {
         licenseET = findViewById(R.id.plateNum);
         provET = findViewById(R.id.provET);
         carManET = findViewById(R.id.carManET);
-        carModET = findViewById(R.id.carModelET);
         imageView = findViewById(R.id.imageView);
         spinner = findViewById(R.id.infrac_spinner);
         tickID = findViewById(R.id.ticIDET);
@@ -113,8 +111,6 @@ public class GenerateTicketActivity extends AppCompatActivity {
         timeStamp.setEnabled(false);
         dateStamp.setEnabled(false);
         licenseET.setEnabled(false);
-        carManET.setEnabled(false);
-        carModET.setEnabled(false);
         provET.setEnabled(false);
         tickID.setEnabled(false);
     }
@@ -127,9 +123,7 @@ public class GenerateTicketActivity extends AppCompatActivity {
     //Allow non-editable fields to be editable if incorrect data
     public void onEditTicClick(View view){
         carManET.setEnabled(true);
-        carModET.setEnabled(true);
         carManET.setTextColor(Color.rgb(200,0,0));
-        carModET.setTextColor(Color.rgb(200,0,0));
     }
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -278,7 +272,7 @@ public class GenerateTicketActivity extends AppCompatActivity {
                 dialog.dismiss();
                 db.open();
                 long tid = db.insertTicket(tickID.toString(), dateStamp.toString(), timeStamp.toString(),
-                        licenseET.toString(), provET.toString(), carManET.toString(), carModET.toString(),
+                        licenseET.toString(), provET.toString(), carManET.toString(),
                         spinner.toString());
                 db.close();
                 finish();
