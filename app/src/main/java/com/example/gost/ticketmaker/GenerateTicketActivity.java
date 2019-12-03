@@ -173,19 +173,17 @@ public class GenerateTicketActivity extends AppCompatActivity {
                 //Thumbnail
                 Bundle extras = data.getExtras();
                 Bitmap imageBitmap = (Bitmap) extras.get("data");
-                Matrix matrix = new Matrix();
-                matrix.postRotate(90);
-                Bitmap rotatedImage = Bitmap.createBitmap(imageBitmap, 0,0, imageBitmap.getWidth(), imageBitmap.getHeight(), matrix, true);
-                imageView.setImageBitmap(rotatedImage);
+
+                imageView.setImageBitmap(imageBitmap);
 
                 //Actual file
-                Uri tempUri = getImageUri(getApplicationContext(), rotatedImage);
+                Uri tempUri = getImageUri(getApplicationContext(), imageBitmap);
                 File finalFile = new File(getRealPathFromURI(tempUri));
                 System.out.println(tempUri);
 
                 /*TESTING*/
                 //using initial bitmap as dataset
-                FirebaseVisionImage fvImage = FirebaseVisionImage.fromBitmap(rotatedImage);
+                FirebaseVisionImage fvImage = FirebaseVisionImage.fromBitmap(imageBitmap);
                 //the on-device model for text-recognition
                 FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
                 //pass the image to the processImage method
@@ -196,21 +194,20 @@ public class GenerateTicketActivity extends AppCompatActivity {
                                 // Task completed successfully
                                 // Display the text found in the textView
                                 String text = firebaseVisionText.getText();
-                                String[] lines = text.split("//n");
+                                String[] lines = text.split("\n");
                                 licenseET.setText(text);
+                                boolean flag = true;
 
                                 String[] provinces = {"Newfoundland", "Newfoundland and Labrador", "Newfoundland & Labrador", "Prince Edward Island",
                                         "Nova Scotia","New Brunswick","Québec", "Quebec", "Ontario","Manitoba","Saskatchewan","Alberta","British Columbia",
                                         "Yukon","Northwest Territories","Nunavut"};
 
+
                                 for (String p : provinces) {
-                                    if(text.contains(p)) {
+                                    if (text.contains(p) || text.contains(p.toUpperCase())) {
                                         provET.setText(p);
-                                        text.replace(p,"");
-                                    }
-                                    else if(text.contains(p.toUpperCase())) {
-                                        provET.setText(p);
-                                        text.replace(p,"");
+                                        text.replace(p, "");
+                                        break;
                                     }
                                 }
 
