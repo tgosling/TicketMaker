@@ -27,6 +27,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,8 +45,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
-import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -281,6 +280,7 @@ public class GenerateTicketActivity extends AppCompatActivity {
         if(licenseET.getText().equals("") || provET.getText().equals(""))
         {
             //todo make a popup saying no license plate or province
+            Toast.makeText(this, "Missing province or license plate\nplease take a picture", Toast.LENGTH_LONG).show();
         }
         else {
             AlertDialog.Builder builder = new AlertDialog.Builder(GenerateTicketActivity.this);
@@ -292,7 +292,6 @@ public class GenerateTicketActivity extends AppCompatActivity {
                     dialog.dismiss();
 
                     String previousData = "";
-
 
                     //save old data
                     try
