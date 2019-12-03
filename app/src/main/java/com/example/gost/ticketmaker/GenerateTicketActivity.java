@@ -50,8 +50,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GenerateTicketActivity extends AppCompatActivity {
 
-    private DBAdapter db;
-
     Context context;
 
     EditText timeStamp;
@@ -74,7 +72,7 @@ public class GenerateTicketActivity extends AppCompatActivity {
         //adds back bar to main
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //db
-       db = new DBAdapter(this);
+       //db = new DBAdapter(this);
 
         //set variables
         context = getApplicationContext();
@@ -86,6 +84,9 @@ public class GenerateTicketActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         spinner = findViewById(R.id.infrac_spinner);
         tickID = findViewById(R.id.ticIDET);
+
+        licenseET.setText("");
+        provET.setText("");
 
         tickID.setTextColor(Color.rgb(255,255,255));
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -277,7 +278,7 @@ public class GenerateTicketActivity extends AppCompatActivity {
         Cursor c;
         final Intent intent = new Intent(this, MainActivity.class);
 
-        if(licenseET.getText().equals("") || provET.getText().equals(""))
+        if(licenseET.getText().toString().equals("") || provET.getText().toString().equals(""))
         {
             //todo make a popup saying no license plate or province
             Toast.makeText(this, "Missing province or license plate\nplease take a picture", Toast.LENGTH_LONG).show();
