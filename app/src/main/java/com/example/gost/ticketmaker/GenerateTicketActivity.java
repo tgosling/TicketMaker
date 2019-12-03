@@ -44,6 +44,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GenerateTicketActivity extends AppCompatActivity {
 
+    private DBAdapter db;
+
     EditText timeStamp;
     EditText dateStamp;
     EditText licenseET;
@@ -75,6 +77,8 @@ public class GenerateTicketActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         spinner = findViewById(R.id.infrac_spinner);
         tickID = findViewById(R.id.ticIDET);
+
+        tickID.setTextColor(Color.rgb(255,255,255));
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.infrac_array, android.R.layout.simple_spinner_item);
@@ -173,17 +177,19 @@ public class GenerateTicketActivity extends AppCompatActivity {
                 //Thumbnail
                 Bundle extras = data.getExtras();
                 Bitmap imageBitmap = (Bitmap) extras.get("data");
-
-                imageView.setImageBitmap(imageBitmap);
+                Matrix matrix = new Matrix();
+                matrix.postRotate(90);
+                Bitmap rotatedImage = Bitmap.createBitmap(imageBitmap, 0,0, imageBitmap.getWidth(), imageBitmap.getHeight(), matrix, true);
+                imageView.setImageBitmap(rotatedImage);
 
                 //Actual file
-                Uri tempUri = getImageUri(getApplicationContext(), imageBitmap);
+                Uri tempUri = getImageUri(getApplicationContext(), rotatedImage);
                 File finalFile = new File(getRealPathFromURI(tempUri));
                 System.out.println(tempUri);
 
                 /*TESTING*/
                 //using initial bitmap as dataset
-                FirebaseVisionImage fvImage = FirebaseVisionImage.fromBitmap(imageBitmap);
+                FirebaseVisionImage fvImage = FirebaseVisionImage.fromBitmap(rotatedImage);
                 //the on-device model for text-recognition
                 FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
                 //pass the image to the processImage method
@@ -196,7 +202,6 @@ public class GenerateTicketActivity extends AppCompatActivity {
                                 String text = firebaseVisionText.getText();
                                 String[] lines = text.split("\n");
                                 licenseET.setText(text);
-                                boolean flag = true;
 
                                 String[] provinces = {"Newfoundland", "Newfoundland and Labrador", "Newfoundland & Labrador", "Prince Edward Island",
                                         "Nova Scotia","New Brunswick","Québec", "Quebec", "Ontario","Manitoba","Saskatchewan","Alberta","British Columbia",
@@ -229,9 +234,20 @@ public class GenerateTicketActivity extends AppCompatActivity {
         }
     }
 
+
+
     public boolean onOptionsItemSelected(MenuItem item){
         Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
         startActivityForResult(myIntent, 0);
         return true;
+    }
+
+    public void OnPublishTicClick(View view){
+        Cursor c;
+        db.open();
+        long id = db.insertTicket(tickID.toString(), dateStamp.toString(), timeStamp.toString(),
+                licenseET.toString(), provET.toString(), carManET.toString(), carModET.toString(),
+                spinner.toString());
+        db.close();
     }
 }

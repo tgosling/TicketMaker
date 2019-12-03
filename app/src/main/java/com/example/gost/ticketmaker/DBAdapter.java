@@ -70,8 +70,8 @@ public class DBAdapter {
 
     public void close() { DBHelper.close();}
 
-    public long insertTicket(String tickID, String licPlate, String prov, String carMan, String carModel,
-                             String date, String timeStamp, String infrac){
+    public long insertTicket(String tickID, String date, String timeStamp, String licPlate,
+                             String prov, String carMan, String carModel, String infrac){
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_TICK_ID, tickID);
         initialValues.put(KEY_LIC_PLATE, licPlate);
