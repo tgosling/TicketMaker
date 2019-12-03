@@ -65,9 +65,10 @@ public class GenerateTicketActivity extends AppCompatActivity {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //adds back bar to main
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //camera stuff
+        //db
+        db = new DBAdapter(this);
 
-
+        //
         timeStamp = findViewById(R.id.timeET);
         dateStamp = findViewById(R.id.dateET);
         licenseET = findViewById(R.id.plateNum);
