@@ -5,26 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import java.util.List;
 
-import java.util.ArrayList;
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-
-public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.ViewHolder> {
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-//    String[] SubjectValues;
-    ArrayList<String> SubjectValues;
+    String[] SubjectValues;
     Context context;
     View view1;
     ViewHolder viewHolder1;
     TextView textView;
 
-    public ViewAdapter(Context context1, ArrayList<String> SubjectValues1){
+    public MyAdapter(Context context1, String [] SubjectValues1){
 
         SubjectValues = SubjectValues1;
         context = context1;
@@ -54,13 +46,12 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position){
 
-        holder.textView.setText(SubjectValues.get(position));
+        holder.textView.setText(SubjectValues[position]);
     }
 
     @Override
     public int getItemCount(){
 
-        return SubjectValues.size();
+        return SubjectValues.length;
     }
 }
-
