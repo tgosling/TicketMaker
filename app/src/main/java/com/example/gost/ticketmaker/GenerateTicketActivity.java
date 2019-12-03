@@ -196,15 +196,25 @@ public class GenerateTicketActivity extends AppCompatActivity {
                                 String text = firebaseVisionText.getText();
                                 String[] lines = text.split("\n");
                                 licenseET.setText(text);
-                                boolean flag = true;
+                                boolean nunOrNewf = false;
 
                                 String[] provinces = {"Newfoundland", "Newfoundland and Labrador", "Newfoundland & Labrador", "Prince Edward Island",
-                                        "Nova Scotia","New Brunswick","Québec", "Quebec", "Ontario","Manitoba","Saskatchewan","Alberta","British Columbia",
+                                        "Nova Scotia","New Brunswick", "Brunswick","Québec", "Quebec", "Ontario","Manitoba","Saskatchewan","Alberta","British Columbia",
                                         "Yukon","Northwest Territories","Nunavut"};
-
 
                                 for (String p : provinces) {
                                     if (text.contains(p) || text.contains(p.toUpperCase())) {
+                                        //new brunswick's tag has "new" in very small font and may not be picked up
+                                        //nunOrNewf if nunavut or newfoundland
+                                        if(p.toUpperCase() == "BRUNSWICK")
+                                        {
+                                            provET.setText("NEW " + p);
+                                            text.replace(p, "");
+                                            break;
+                                        }
+                                        else if(p.toUpperCase() == "NEWFOUNDLAND" || p.toUpperCase() == "NEWFOUNDLAND AND LABRADOR" || p.toUpperCase() == "NEWFOUNDLAND & LABRADOR" ||p.toUpperCase() == "NUNAVUT")
+                                            nunOrNewf = true;
+
                                         provET.setText(p);
                                         text.replace(p, "");
                                         break;
@@ -212,7 +222,11 @@ public class GenerateTicketActivity extends AppCompatActivity {
                                 }
 
                                 //for typical plates, the license number is on the second line
-                                licenseET.setText(lines[1]);
+                                //nunavut and newfoundland the license is the first line
+                                if(nunOrNewf)
+                                    licenseET.setText(lines[0]);
+                                else
+                                    licenseET.setText(lines[1]);
                             }
                         })
                         .addOnFailureListener(
