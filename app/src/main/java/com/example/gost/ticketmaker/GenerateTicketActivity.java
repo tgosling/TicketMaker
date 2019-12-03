@@ -51,8 +51,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GenerateTicketActivity extends AppCompatActivity {
 
-    private DBAdapter db;
-
     Context context;
 
     EditText timeStamp;

@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/ticket_tron_app_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewTicketsActivity" />
+        <activity android:name=".RecyclerView"></activity>
         <activity android:name=".GenerateTicketActivity" />
         <meta-data
             android:name="android.support.GenerateTicketActivity"

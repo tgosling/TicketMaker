@@ -22,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onViewTickClick(View view){
-        Intent intent = new Intent(this, ViewTicketsActivity.class);
+//        Intent intent = new Intent(this, ViewTicketsActivity.class);
+//        startActivity(intent);
+        Intent intent = new Intent(this, RecyclerView.class);
         startActivity(intent);
     }
 }
