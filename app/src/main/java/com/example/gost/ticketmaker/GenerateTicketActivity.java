@@ -278,65 +278,72 @@ public class GenerateTicketActivity extends AppCompatActivity {
         Cursor c;
         final Intent intent = new Intent(this, MainActivity.class);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(GenerateTicketActivity.this);
-        builder.setTitle("Confirm Ticket");
-        builder.setMessage("Are you sure you want to publish this ticket?");
-        builder.setIcon(R.drawable.tickettron);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
+        if(licenseET.getText().equals("") || provET.getText().equals(""))
+        {
+            //todo make a popup saying no license plate or province
+        }
+        else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(GenerateTicketActivity.this);
+            builder.setTitle("Confirm Ticket");
+            builder.setMessage("Are you sure you want to publish this ticket?");
+            builder.setIcon(R.drawable.tickettron);
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
 
-                String previousData = "";
+                    String previousData = "";
 
 
-                //save old data
-                try
-                {
-                    FileInputStream fin = openFileInput("tickets.csv");
-                    InputStreamReader isr = new InputStreamReader(fin);
-                    String prev = "";
+                    //save old data
+                    try
+                    {
+                        FileInputStream fin = openFileInput("tickets.csv");
+                        InputStreamReader isr = new InputStreamReader(fin);
+                        String prev = "";
 
-                    int data = isr.read();
+                        int data = isr.read();
 
-                    while (data != -1) {
-                        prev+= (char) data;
-                        data = isr.read();
+                        while (data != -1) {
+                            prev+= (char) data;
+                            data = isr.read();
+                        }
+
+                        previousData = prev;
+                    }
+                    catch(IOException ioe)
+                    {
+                        ioe.printStackTrace();
                     }
 
-                    previousData = prev;
-                }
-                catch(IOException ioe)
-                {
-                    ioe.printStackTrace();
-                }
+                    try ( FileOutputStream ofile = openFileOutput("tickets.csv",MODE_PRIVATE)) {
+                        StringBuilder sb = new StringBuilder();
 
-                try ( FileOutputStream ofile = openFileOutput("tickets.csv",MODE_PRIVATE)) {
-                    StringBuilder sb = new StringBuilder();
+                        OutputStreamWriter osw = new OutputStreamWriter(ofile);
 
-                    OutputStreamWriter osw = new OutputStreamWriter(ofile);
+                        sb.append(previousData);
+                        sb.append(tickID.getText().toString());
+                        sb.append(',');
+                        sb.append(dateStamp.getText().toString());
+                        sb.append(',');
+                        sb.append(timeStamp.getText().toString());
+                        sb.append(',');
+                        sb.append(licenseET.getText().toString());
+                        sb.append(',');
+                        sb.append(provET.getText().toString());
+                        sb.append(',');
+                        sb.append(carManET.getText().toString());
+                        sb.append(',');
+                        sb.append(spinner.getSelectedItem().toString());
+                        sb.append('|');
 
-                    sb.append(previousData);
-                    sb.append(tickID.getText().toString());
-                    sb.append(',');
-                    sb.append(dateStamp.getText().toString());
-                    sb.append(',');
-                    sb.append(timeStamp.getText().toString());
-                    sb.append(',');
-                    sb.append(licenseET.getText().toString());
-                    sb.append(',');
-                    sb.append(provET.getText().toString());
-                    sb.append(',');
-                    sb.append(carManET.getText().toString());
-                    sb.append(',');
-                    sb.append(spinner.getSelectedItem().toString());
-                    sb.append('|');
+                        osw.write(sb.toString());
+                        osw.flush();
+                        osw.close();
 
-                    osw.write(sb.toString());
-                    osw.flush();
-                    osw.close();
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
+                        //todo say that the ticket was saved
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
+                    }
 
 //                db.open();
 //                long tid = db.insertTicket(tickID.toString(), dateStamp.toString(), timeStamp.toString(),
@@ -345,14 +352,16 @@ public class GenerateTicketActivity extends AppCompatActivity {
 //                db.close();
 //                finish();
 //                startActivity(intent);
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+
     }
 }

@@ -9,7 +9,6 @@
     <string name="carModel">Car Model</string>
     <string name="model">Model</string>
     <string name="tickInfo">Ticket Info</string>
-    <string name="plateNum">plate #</string>
     <string name="carMake">Enter Car Make</string>
     <string name="backToMain">Back To Main</string>
     <string name="editTick">Edit Ticket</string>
