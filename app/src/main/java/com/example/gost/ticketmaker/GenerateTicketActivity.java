@@ -7,7 +7,9 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -46,6 +48,8 @@ public class GenerateTicketActivity extends AppCompatActivity {
 
     private DBAdapter db;
 
+    Context context;
+
     EditText timeStamp;
     EditText dateStamp;
     EditText licenseET;
@@ -56,6 +60,7 @@ public class GenerateTicketActivity extends AppCompatActivity {
     ImageView imageView;
     Spinner spinner;
     Bitmap licBitmap;
+    DialogInterface dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +73,8 @@ public class GenerateTicketActivity extends AppCompatActivity {
         //db
         db = new DBAdapter(this);
 
-        //
+        //set variables
+        context = getApplicationContext();
         timeStamp = findViewById(R.id.timeET);
         dateStamp = findViewById(R.id.dateET);
         licenseET = findViewById(R.id.plateNum);
@@ -245,10 +251,30 @@ public class GenerateTicketActivity extends AppCompatActivity {
 
     public void OnPublishTicClick(View view){
         Cursor c;
-        db.open();
-        long id = db.insertTicket(tickID.toString(), dateStamp.toString(), timeStamp.toString(),
-                licenseET.toString(), provET.toString(), carManET.toString(), carModET.toString(),
-                spinner.toString());
-        db.close();
+        final Intent intent = new Intent(this, MainActivity.class);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(GenerateTicketActivity.this);
+        builder.setTitle("Confirm Ticket");
+        builder.setMessage("Are you sure you want to publish this ticket?");
+        builder.setIcon(R.drawable.tickettron);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+                db.open();
+                long tid = db.insertTicket(tickID.toString(), dateStamp.toString(), timeStamp.toString(),
+                        licenseET.toString(), provET.toString(), carManET.toString(), carModET.toString(),
+                        spinner.toString());
+                db.close();
+                finish();
+                startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }
