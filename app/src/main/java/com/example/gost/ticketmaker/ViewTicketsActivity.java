@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 
 public class ViewTicketsActivity extends AppCompatActivity {
@@ -30,6 +31,8 @@ public class ViewTicketsActivity extends AppCompatActivity {
     LinearLayout linearLayout;
     RecyclerView.Adapter recyclerViewAdapter;
     RecyclerView.LayoutManager recyclerViewLayoutManager;
+
+    ArrayList<String> tickets;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,7 @@ public class ViewTicketsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        tickets = new ArrayList<String>();
         //get the existing db file or from assets folder
         db = new DBAdapter(this);
         try{
@@ -61,12 +65,11 @@ public class ViewTicketsActivity extends AppCompatActivity {
         c = db.getAllTickets();
 
         context = getApplicationContext();
-       // linearLayout = findViewById(R.id.LinearLayout);
-        //recyclerView = findViewById(R.id.RecyclerView);
+        linearLayout = findViewById(R.id.LinearLayout);
+        recyclerView = findViewById(R.id.RecyclerView);
         recyclerViewLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(recyclerViewLayoutManager);
-        //recyclerViewAdapter = new MyAdapter(getApplicationContext(),
-         //       people);
+        recyclerViewAdapter = new ViewAdapter(getApplicationContext(), tickets);
         recyclerView.setAdapter(recyclerViewAdapter);
 
     }

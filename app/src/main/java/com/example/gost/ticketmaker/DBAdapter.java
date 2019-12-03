@@ -9,8 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DBAdapter {
-    static final String KEY_ROW_ID = "_id";
-    static final String KEY_TICK_ID = "tickID";
+    static final String KEY_ROWID = "_id";
+    static final String KEY_TICK_ID = "ticketID";
     static final String KEY_LIC_PLATE = "license";
     static final String KEY_PROV = "province";
     static final String KEY_CAR_MAN = "manufacturer";
@@ -26,8 +26,8 @@ public class DBAdapter {
     static final int DATABASE_VERSION = 2;
 
     static final String DATABASE_CREATE =
-            "create table tickets(_tickID integer primary key autoincrement," +
-                    "license text not null, province text not null, date text not null, time text not null," +
+            "create table tickets(_id integer primary key autoincrement," +
+                    "ticketID text not null, license text not null, province text not null, date text not null, time text not null," +
                     "infraction text not null);";
 
     final Context context;
@@ -89,14 +89,14 @@ public class DBAdapter {
     //}
 
     public Cursor getAllTickets(){
-        return db.query(DATABASE_TABLE, new String[] {KEY_ROW_ID, KEY_TICK_ID, KEY_LIC_PLATE, KEY_CAR_MAN, KEY_CAR_MOD, KEY_DATE,
+        return db.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_TICK_ID, KEY_LIC_PLATE, KEY_CAR_MAN, KEY_CAR_MOD, KEY_DATE,
                         KEY_TIME, KEY_INFRAC}, null, null, null, null, null);
     }
 
     public Cursor getTicket(long rowId){
         Cursor mCursor =
-                db.query(DATABASE_TABLE, new String[] {KEY_ROW_ID, KEY_TICK_ID, KEY_LIC_PLATE, KEY_CAR_MAN, KEY_CAR_MOD, KEY_DATE,
-                        KEY_TIME, KEY_INFRAC}, KEY_ROW_ID + "=" + rowId, null, null, null, null, null);
+                db.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_TICK_ID, KEY_LIC_PLATE, KEY_CAR_MAN, KEY_CAR_MOD, KEY_DATE,
+                        KEY_TIME, KEY_INFRAC}, KEY_ROWID + "=" + rowId, null, null, null, null, null);
         if(mCursor != null){
             mCursor.moveToFirst();
         }

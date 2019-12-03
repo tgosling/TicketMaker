@@ -38,14 +38,14 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.ViewHolder> {
 
             super(v);
 
-            //textView = (TextView)v.findViewById(R.id.textViewName);
+            textView = (TextView)v.findViewById(R.id.textViewName);
         }
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
 
-        //view1 = LayoutInflater.from(context).inflate(R.layout.recyclerview_layout,parent,false);
+        view1 = LayoutInflater.from(context).inflate(R.layout.recyclerview_layout,parent,false);
         viewHolder1 = new ViewHolder(view1);
 
         return viewHolder1;
