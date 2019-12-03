@@ -106,47 +106,6 @@ public class GenerateTicketActivity extends AppCompatActivity {
         carModET.setEnabled(false);
         provET.setEnabled(false);
         tickID.setEnabled(false);
-
-
-        /*TESTING*/
-        //get initial bitmap
-        licBitmap = BitmapFactory.decodeResource(
-                getApplicationContext().getResources(),
-                R.drawable.license
-        );
-        //using initial bitmap as dataset
-        FirebaseVisionImage fvImage = FirebaseVisionImage.fromBitmap(licBitmap);
-        //the on-device model for text-recognition
-        FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
-        //pass the image to the processImage method
-        Task<FirebaseVisionText> result = detector.processImage(fvImage)
-                .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
-                    @Override
-                    public void onSuccess(FirebaseVisionText firebaseVisionText) {
-                        // Task completed successfully
-                        // Display the text found in the textView
-                        String text = firebaseVisionText.getText();
-                        String[] provinces = {"Newfoundland", "Newfoundland and Labrador", "Newfoundland & Labrador", "Prince Edward Island","Nova Scotia","New Brunswick","Quebec","Ontario","Manitoba","Saskatchewan","Alberta","British Columbia","Yukon","Northwest Territories","Nunavut"};
-
-
-                        for (String p : provinces)
-                        {
-                            if(text.contains(p.toUpperCase()))
-                            {
-                                provET.setText(p);
-                                text.replace(p,"");
-                            }
-                        }
-                    }
-                })
-                .addOnFailureListener(
-                        new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                // Task failed with an exception
-                                licenseET.setText("task failed");
-                            }
-                        });
     }
 
     public void onBackToMainClick(View view){
@@ -239,12 +198,16 @@ public class GenerateTicketActivity extends AppCompatActivity {
                                 String text = firebaseVisionText.getText();
                                 licenseET.setText(text);
 
-                                String[] provinces = {"Newfoundland", "Newfoundland and Labrador", "Newfoundland & Labrador", "Prince Edward Island","Nova Scotia","New Brunswick","Quebec","Ontario","Manitoba","Saskatchewan","Alberta","British Columbia","Yukon","Northwest Territories","Nunavut"};
+                                String[] provinces = {"Newfoundland", "Newfoundland and Labrador", "Newfoundland & Labrador", "Prince Edward Island",
+                                        "Nova Scotia","New Brunswick","Québec", "Quebec", "Ontario","Manitoba","Saskatchewan","Alberta","British Columbia",
+                                        "Yukon","Northwest Territories","Nunavut"};
 
-                                for (String p : provinces)
-                                {
-                                    if(text.contains(p.toUpperCase()))
-                                    {
+                                for (String p : provinces) {
+                                    if(text.contains(p)) {
+                                        provET.setText(p);
+                                        text.replace(p,"");
+                                    }
+                                    else if(text.contains(p.toUpperCase())) {
                                         provET.setText(p);
                                         text.replace(p,"");
                                     }
