@@ -21,6 +21,7 @@ import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -60,8 +61,7 @@ public class GenerateTicketActivity extends AppCompatActivity {
     EditText tickID;
     ImageView imageView;
     Spinner spinner;
-    Bitmap licBitmap;
-    DialogInterface dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -341,17 +341,15 @@ public class GenerateTicketActivity extends AppCompatActivity {
                         osw.close();
 
                         //todo say that the ticket was saved
+                        //I can't get the toast to work actually
+                        //we can either have a toast pop up and the user migrate back to the main on their own
+                        //Toast toast = Toast.makeText(this, "Missing province or license plate\nplease take a picture", Toast.LENGTH_LONG).show();
+                        //or we can have it launch back to the main on success with no message
+                        startActivity(intent);
                     } catch (IOException e) {
                         System.out.println(e.getMessage());
                     }
 
-//                db.open();
-//                long tid = db.insertTicket(tickID.toString(), dateStamp.toString(), timeStamp.toString(),
-//                        licenseET.toString(), provET.toString(), carManET.toString(),
-//                        spinner.toString());
-//                db.close();
-//                finish();
-//                startActivity(intent);
                 }
             });
             builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
