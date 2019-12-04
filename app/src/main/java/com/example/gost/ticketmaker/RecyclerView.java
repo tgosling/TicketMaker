@@ -6,6 +6,7 @@ import android.widget.LinearLayout;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.io.FileInputStream;
@@ -18,7 +19,7 @@ public class RecyclerView extends AppCompatActivity{
     androidx.recyclerview.widget.RecyclerView recyclerView;
     LinearLayout linearLayout;
     androidx.recyclerview.widget.RecyclerView.Adapter recyclerViewAdapter;
-    androidx.recyclerview.widget.RecyclerView.LayoutManager recyclerViewLayoutManager;
+    LinearLayoutManager recyclerViewLayoutManager;
 
 
     @Override
@@ -30,6 +31,10 @@ public class RecyclerView extends AppCompatActivity{
         recyclerView = findViewById(R.id.recyclerView);
         recyclerViewLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(recyclerViewLayoutManager);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                recyclerViewLayoutManager.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
         String temp = "";
 
@@ -56,7 +61,10 @@ public class RecyclerView extends AppCompatActivity{
             ioe.printStackTrace();
         }
 
-        String[] tickets = temp.split("\\|");
+        String ticketsWithHeader = "ID,Date,Time,License Plate,Provence,Vehicle,Infringement|" + temp;
+
+        String[] tickets = ticketsWithHeader.split("\\|");
+
 
 
         recyclerViewAdapter = new MyAdapter(getApplicationContext(), tickets);
