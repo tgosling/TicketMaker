@@ -61,7 +61,7 @@ public class RecyclerView extends AppCompatActivity{
             ioe.printStackTrace();
         }
 
-        String ticketsWithHeader = "ID,Date,Time,License Plate,Provence,Vehicle,Infringement|" + temp;
+        String ticketsWithHeader = "ID   Date   Time   License Plate   Provence   Vehicle   Infringement|" + temp;
 
         String[] tickets = ticketsWithHeader.split("\\|");
 
